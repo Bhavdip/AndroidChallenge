@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorJaffa">#F37633</color>
+    <color name="colorLochmara">#007ABD</color>
+    <color name="colorPattensBlue">#E2F4FF</color>
+    <color name="colorPeriwinkleGray">#BBD4E4</color>
+    <color name="colorAthensGray">#F4F5F7</color>
+    <color name="colorAlto">#D7D7D7</color>
+    <color name="colorBoulder">#7A7A7A</color>
+    <color name="gray">#d2d2d2</color>
+    <color name="colorScarpaFlow">#58585a</color>
+    <color name="lightGray">#828282</color>
+    <color name="colorWildSand">#f5f5f5</color>
+    <color name="colorSeashellPeach">#FFF7F2</color>
+    <color name="colorAlmond">#EFDACC</color>
+    <color name="colorProjectTitle">@color/colorScarpaFlow</color>
+    <color name="colorPhotoCount">@color/lightGray</color>
+    <color name="colorBorder">@color/colorAlmond</color>
+    <color name="colorUploadedBackground">@color/colorSeashellPeach</color>
+    <color name="colorUploadedText">@color/colorJaffa</color>
+    <color name="colorAddMorePhotosBg">@color/colorLochmara</color>
+    <color name="colorAddMorePhotosText">@color/colorWhite</color>
+    <color name="colorTotalPhotosText">@color/colorLochmara</color>
+    <color name="colorTotalPhotosBackground">@color/colorPattensBlue</color>
+    <color name="colorTotalPhotosBorder">@color/colorPeriwinkleGray</color>
+    <color name="colorBottomPanelBg">@color/colorAthensGray</color>
+    <color name="colorBottomPanelBorder">@color/colorAlto</color>
+    <color name="colorSelectPhotoBg">@color/colorBoulder</color>
+    <color name="colorSelectPhotoBorder">@color/colorJaffa</color>
+</resources>
+

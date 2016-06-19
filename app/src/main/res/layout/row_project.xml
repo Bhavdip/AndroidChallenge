@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ProjectItemBinding">
+
+        <variable
+            name="viewmodel"
+            type="com.skillvo.android.viewmodel.ProjectItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rowParentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@drawable/project_item_selector"
+        android:clickable="true">
+
+        <RadioButton
+            android:id="@+id/select_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:checked="@{viewmodel.projectSelection}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/select_project"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@{viewmodel.projectTitle}"
+                android:textColor="@color/colorProjectTitle"
+                android:textSize="20sp"
+                tools:text="Bathroom sink" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@{viewmodel.totalPhotos}"
+                android:textColor="@color/colorPhotoCount"
+                android:textSize="18sp"
+                tools:text="23 Photos" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

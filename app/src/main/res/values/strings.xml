@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SkillvoAndroid</string>
+    <string name="title_project">Add Photos to existing project</string>
+    <string name="font_montserrat_bold">fonts/Montserrat-Bold.ttf</string>
+    <string name="font_montserrat_regular">fonts/Montserrat-Regular.ttf</string>
+    <string name="pt_sans_regular">fonts/pt_sans_regular.ttf</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_next">Next</string>
+</resources>
