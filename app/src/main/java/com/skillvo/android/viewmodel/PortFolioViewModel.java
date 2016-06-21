@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.view.View;
 
 import com.skillvo.android.model.PagedList;
@@ -15,6 +16,7 @@ public class PortFolioViewModel implements ActivityViewModel {
     private PortfolioViewModelListener mViewModelListener;
     public ObservableField<String> projectTitle = new ObservableField<>();
     public ObservableField<String> portfolioPhotoUrl = new ObservableField<>();
+    public ObservableInt portfolioPhotoDegrees = new ObservableInt();
     private PagedList mPagedDataModel;
     private Context mActivityContext;
 
@@ -26,6 +28,8 @@ public class PortFolioViewModel implements ActivityViewModel {
         void onLeftRotation();
 
         void onRightRotation();
+
+        void onBackClick();
     }
 
     public PortFolioViewModel(PortfolioViewModelListener modelListener) {
@@ -36,12 +40,22 @@ public class PortFolioViewModel implements ActivityViewModel {
     public void bindPagedDataModel(PagedList pagedDataModel) {
         this.mPagedDataModel = pagedDataModel;
         projectTitle.set(mPagedDataModel.getTitle());
+        if(mPagedDataModel.getPortfolio().size() > 0){
+            //load the default portfolio image
+            bindPortfolioModel(mPagedDataModel.getPortfolio().get(0),0);
+        }
     }
 
-    public void bindPorfolioModel(Portfolio selectPorfolio) {
-        if (selectPorfolio != null) {
-            portfolioPhotoUrl.set(selectPorfolio.getUrl());
+    public void bindPortfolioModel(Portfolio portfolioModel, int lastRotation) {
+        if (portfolioModel != null) {
+            portfolioPhotoUrl.set(portfolioModel.getUrl());
+            portfolioPhotoDegrees.set(lastRotation);
         }
+    }
+
+    public void updateOriginalImageDegree(int nwRotation){
+        portfolioPhotoDegrees.set(nwRotation);
+
     }
 
     @Override
@@ -68,7 +82,6 @@ public class PortFolioViewModel implements ActivityViewModel {
 
     @Override
     public void onBackPressed(Activity activity) {
-
     }
 
     @Override
@@ -97,5 +110,9 @@ public class PortFolioViewModel implements ActivityViewModel {
 
     public void onAddMorePhotos(View view) {
         DialogUtils.showToast(mActivityContext, "Add More Photos");
+    }
+
+    public void onBackClick(View view){
+        mViewModelListener.onBackClick();
     }
 }

@@ -7,12 +7,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class ProjectApplication extends Application {
 
-    private static ProjectApplication projectApplication;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        projectApplication = this;
         setUpDefaultCalligraphy();
     }
 
@@ -24,7 +21,4 @@ public class ProjectApplication extends Application {
         );
     }
 
-    public static ProjectApplication getApplication(){
-        return projectApplication;
-    }
 }

@@ -4,15 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.widget.ImageView;
+import android.util.Log;
 
 import com.skillvo.android.R;
 import com.skillvo.android.adapter.AdapterItemListener;
@@ -21,13 +17,13 @@ import com.skillvo.android.databinding.PortfolioDataBinding;
 import com.skillvo.android.model.PagedList;
 import com.skillvo.android.model.Portfolio;
 import com.skillvo.android.utils.DialogUtils;
-import com.skillvo.android.utils.RotationUtils;
 import com.skillvo.android.viewmodel.PortFolioViewModel;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PortFolioActivity extends AppCompatActivity implements PortFolioViewModel.PortfolioViewModelListener, AdapterItemListener<Portfolio> {
 
+    private static final String TAG = "PortFolioActivity";
     public static final int REQUEST_CODE = 121;
     private static final String KEY_DATA_MODEL = "project_model";
     private PortfolioDataBinding portfolioDataBinding;
@@ -78,7 +74,6 @@ public class PortFolioActivity extends AppCompatActivity implements PortFolioVie
         if (getIntent().hasExtra(KEY_DATA_MODEL)) {
             mPagedDataModel = getIntent().getParcelableExtra(KEY_DATA_MODEL);
             portfolioViewModel.bindPagedDataModel(mPagedDataModel);
-            DialogUtils.showToast(getApplicationContext(), "Portfolio Object Found");
         }
     }
 
@@ -93,31 +88,44 @@ public class PortFolioActivity extends AppCompatActivity implements PortFolioVie
 
     @Override
     public void onLeftRotation() {
-        portfolioDataBinding.rotatedImageView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = portfolioDataBinding.rotatedImageView.getDrawingCache();
-        portfolioDataBinding.rotatedImageView.setImageBitmap(RotationUtils.rotateBitmap(bitmap, 90));
-        portfolioDataBinding.rotatedImageView.setDrawingCacheEnabled(false);
-        if(mPortfolioPhotoAdapter.getmSelectedItem() != -1){
-            mPortfolioPhotoAdapter.updateSelectedItemRoatation(mPortfolioPhotoAdapter.getmSelectedItem(),90);
-        }
+        leftSideRotation();
     }
 
     @Override
     public void onRightRotation() {
-        portfolioDataBinding.rotatedImageView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = portfolioDataBinding.rotatedImageView.getDrawingCache();
-        portfolioDataBinding.rotatedImageView.setImageBitmap(RotationUtils.rotateBitmap(bitmap, 90));
-        portfolioDataBinding.rotatedImageView.setDrawingCacheEnabled(false);
-        if(mPortfolioPhotoAdapter.getmSelectedItem() != -1){
-            mPortfolioPhotoAdapter.updateSelectedItemRoatation(mPortfolioPhotoAdapter.getmSelectedItem(),90);
-        }
+        rightSideRotation();
     }
-
 
     @Override
     public void onItemClickListener(Portfolio portfolio, int position) {
         if (portfolio != null) {
-            portfolioViewModel.bindPorfolioModel(portfolio);
+            int lastRotation = mPortfolioPhotoAdapter.getStateOfRotation();
+            portfolioViewModel.bindPortfolioModel(portfolio, lastRotation);
         }
+    }
+
+    private void leftSideRotation() {
+        int lastRotation = mPortfolioPhotoAdapter.getStateOfRotation();
+        Log.d(TAG, String.format("LeftSideRotation : Last Left Rotation:%1d", lastRotation));
+        int nwRotation = (lastRotation - 90);
+        Log.d(TAG, String.format("LeftSideRotation : New Left Rotation:%1d", lastRotation));
+        if (mPortfolioPhotoAdapter.getSelectedItem() != -1) {
+            mPortfolioPhotoAdapter.updateSelectedItemDegrees(mPortfolioPhotoAdapter.getSelectedItem(), nwRotation);
+            portfolioViewModel.updateOriginalImageDegree(nwRotation);
+        }
+    }
+
+    private void rightSideRotation() {
+        int lastRotation = mPortfolioPhotoAdapter.getStateOfRotation();
+        Log.d(TAG, String.format("RightSideRotation : Last Right Rotation:%1d", lastRotation));
+        int nwRotation = (lastRotation + 90);
+        if (mPortfolioPhotoAdapter.getSelectedItem() != -1) {
+            mPortfolioPhotoAdapter.updateSelectedItemDegrees(mPortfolioPhotoAdapter.getSelectedItem(), nwRotation);
+            portfolioViewModel.updateOriginalImageDegree(nwRotation);
+        }
+    }
+
+    public void onBackClick() {
+        finish();
     }
 }

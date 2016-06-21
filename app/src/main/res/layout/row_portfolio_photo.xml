@@ -20,15 +20,16 @@
             android:id="@+id/imageViewThumbnail"
             android:layout_width="80dp"
             android:layout_height="69dp"
+            android:layout_gravity="center"
             app:imageUrl="@{viewmodel.photoUrl}"
+            app:degrees="@{viewmodel.photoDegrees}"
             tools:src="@drawable/dummy_photo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/green_dot3x" />
     </FrameLayout>
 </layout>

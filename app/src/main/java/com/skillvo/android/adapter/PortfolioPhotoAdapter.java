@@ -21,7 +21,7 @@ public class PortfolioPhotoAdapter extends RecyclerView.Adapter<PortfolioPhotoAd
 
     private List<Portfolio> mPortfolioList = new ArrayList<>();
     private AdapterItemListener<Portfolio> adapterItemListener;
-    private int mSelectedItem = -1;
+    private int mSelectedItem = 0; //by default selected Item is first
     private SparseIntArray mSparseIntArray;
 
     public PortfolioPhotoAdapter(AdapterItemListener<Portfolio> adapterItemListener) {
@@ -36,13 +36,17 @@ public class PortfolioPhotoAdapter extends RecyclerView.Adapter<PortfolioPhotoAd
         mSparseIntArray = new SparseIntArray(portfolioList.size());
     }
 
-    public int getmSelectedItem() {
+    public int getSelectedItem() {
         return mSelectedItem;
     }
 
-    public void updateSelectedItemRoatation(int key, int value) {
+    public void updateSelectedItemDegrees(int key, int value) {
         mSparseIntArray.put(key, value);
         notifyItemChanged(key);
+    }
+
+    public int getStateOfRotation() {
+        return mSparseIntArray.get(mSelectedItem);
     }
 
     @Override
@@ -72,16 +76,10 @@ public class PortfolioPhotoAdapter extends RecyclerView.Adapter<PortfolioPhotoAd
         }
 
         public void onBindPhotoView(int position, Portfolio portfolio) {
-            mItemPhotoBinding.setViewmodel(new PhotoItemViewModel(mSelectedItem == position, portfolio));
+            int degreesPosition = mSparseIntArray.get(position);
+            mItemPhotoBinding.setViewmodel(new PhotoItemViewModel(portfolio, mSelectedItem == position, degreesPosition));
             //this will apply the frame board to the select image view
             mItemPhotoBinding.portfolioPhotosFrame.setSelected(position == mSelectedItem);
-            int anglePosition = mSparseIntArray.get(position);
-            if (mItemPhotoBinding.imageViewThumbnail != null && mItemPhotoBinding.imageViewThumbnail.getWidth() > 0) {
-                mItemPhotoBinding.imageViewThumbnail.setDrawingCacheEnabled(true);
-                Bitmap bitmap = mItemPhotoBinding.imageViewThumbnail.getDrawingCache();
-                mItemPhotoBinding.imageViewThumbnail.setImageBitmap(RotationUtils.rotateBitmap(bitmap, anglePosition));
-                mItemPhotoBinding.imageViewThumbnail.setDrawingCacheEnabled(false);
-            }
         }
 
         @Override

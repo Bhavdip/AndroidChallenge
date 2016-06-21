@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.skillvo.android.viewmodel.PortFolioViewModel" />
+            type="com.skillvo.android.viewmodel.PortFolioViewModel" />a
     </data>
 
     <LinearLayout
@@ -28,6 +28,7 @@
                 android:layout_centerVertical="true"
                 android:drawableLeft="@drawable/ic_nav_left"
                 android:drawablePadding="10dp"
+                android:onClick="@{viewmodel.onBackClick}"
                 android:text="@string/btn_back"
                 android:textSize="18sp" />
 
@@ -134,20 +135,29 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
-                <ImageView
-                    android:id="@+id/rotatedImageView"
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:imageUrl="@{viewmodel.portfolioPhotoUrl}"
-                    tools:src="@drawable/dummy_photo" />
+                    android:layout_centerInParent="true">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/green_dot3x" />
+                    <ImageView
+                        android:id="@+id/rotatedImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        app:degrees="@{viewmodel.portfolioPhotoDegrees}"
+                        app:imageUrl="@{viewmodel.portfolioPhotoUrl}"
+                        tools:src="@drawable/dummy_photo" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/green_dot3x" />
+                </FrameLayout>
             </RelativeLayout>
 
             <LinearLayout
